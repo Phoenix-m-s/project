@@ -16,6 +16,6 @@ class AuthController {
     }
 
     public function login($username, $password) {
-
+        die('e');
     }
 }

@@ -4,19 +4,19 @@ require_once __DIR__ . '/app/Controllers/AuthController.php';
 
 use Core\Router;
 
+// index.php
+
+require_once __DIR__ . '/vendor/vendor/autoload.php';
+
 $router = new Router();
 
-// رجیستر کردن روت‌ها
-$router->register('/register', function () {
-    $authController = new \App\Controllers\AuthController();
-    $authController->register();
-});
-
-$router->register('/login', function () {
-    $authController = new \App\Controllers\AuthController();
-    $authController->login('moj','sak');
-});
-
-// روت کردن درخواست
-$path = $_SERVER['REQUEST_URI'];
-$router->route($path);
+if ($_SERVER['REQUEST_URI'] === '/login') {
+    $router->loginForm();
+} elseif ($_SERVER['REQUEST_URI'] === '/register') {
+    $router->registerForm();
+} elseif ($_SERVER['REQUEST_URI'] === '/dashboard') {
+    $router->dashboard();
+} else {
+    header("HTTP/1.0 404 Not Found");
+    echo '404 - Not Found';
+}
